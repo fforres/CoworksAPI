@@ -1,0 +1,11 @@
+CC_FIPS	FULL_NAME_ND
+AN	Aixas
+AN	Aixirivall
+AN	Aixovall
+AN	Andorra la Vella
+AN	Ansalonga
+AN	Anyos
+AN	Arans
+AN	Arinsal
+AN	Aubinya
+AN	Bixessarri
