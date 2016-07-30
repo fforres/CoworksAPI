@@ -31,4 +31,4 @@ export const coworkType = new GraphQLObjectType({
 });
 
 
-export const coworksListType = new GraphQLList(coworkType);
+export const coworkListType = new GraphQLList(coworkType);

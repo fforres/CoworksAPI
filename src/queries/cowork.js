@@ -1,5 +1,5 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
-import { coworkType, coworksListType } from '../types';
+import { coworkType, coworkListType } from '../types';
 import { getCoworkById, getCoworkByName, getCoworks } from '../models';
 
 export const coworkByName = {
@@ -28,7 +28,7 @@ export const coworkById = {
 
 export const coworkList = {
   name: 'coworkList',
-  description: 'Returns a list (up until 10) of coworks',
-  type: coworksListType,
+  description: 'Returns a list of coworks', // TODO: define this query (Geolocated? by popularity?)
+  type: coworkListType,
   resolve: () => getCoworks(),
 };

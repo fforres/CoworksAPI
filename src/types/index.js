@@ -1,1 +1,3 @@
-export { coworkType, coworksListType } from './cowork';
+export { coworkType, coworkListType } from './cowork';
+export { cityType, cityListType } from './city';
+export { countryType, countryListType } from './country';

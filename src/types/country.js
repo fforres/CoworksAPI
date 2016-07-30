@@ -1,15 +1,30 @@
+import { GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLList } from 'graphql';
 
-// Country Type definition
-// const countryType = new GraphQLObjectType({
-//   name: 'Country',
-//   fields: {
-//     name: {
-//       type: GraphQLString,
-//       description: 'Country Display Name',
-//     },
-//     code: {
-//       type: GraphQLString,
-//       description: 'Country ISO code',
-//     },
-//   },
-// });
+export const countryType = new GraphQLObjectType({
+  name: 'Country',
+  fields: () => ({
+    name: {
+      type: GraphQLString,
+      description: 'Country Name',
+    },
+    id: {
+      type: GraphQLInt,
+      description: 'Unique country ID',
+    },
+    code: {
+      type: GraphQLString,
+      description: 'FIPS country code',
+    },
+    isoCode: {
+      type: GraphQLString,
+      description: 'ISO country code',
+    },
+    tld: {
+      type: GraphQLString,
+      description: 'TLD  for the country',
+    },
+  }),
+});
+
+
+export const countryListType = new GraphQLList(countryType);
