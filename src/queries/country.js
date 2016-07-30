@@ -1,7 +1,6 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
 import { countryType, countryListType } from '../types';
 import { getCountryById, getCountryByName, getCountries } from '../models';
-console.log(getCountryByName);
 
 export const countryByName = {
   name: 'countryByName',

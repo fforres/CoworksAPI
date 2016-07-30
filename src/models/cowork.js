@@ -46,7 +46,7 @@ export async function getCoworkById(id) {
     const coworkByName = await getCoworkByIdAsync(id);
     return coworkByName;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
@@ -101,10 +101,9 @@ const getCoworkByNameAsync = (name) => {
 export async function getCoworkByName(name) {
   try {
     const coworkByName = await getCoworkByNameAsync(name);
-    console.log(coworkByName);
     return coworkByName;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
@@ -153,10 +152,9 @@ const getCoworksAsync = () => {
 export async function getCoworks() {
   try {
     const coworksList = await getCoworksAsync();
-    console.log(coworksList);
     return coworksList;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
