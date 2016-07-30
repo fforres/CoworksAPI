@@ -1,18 +1,43 @@
-import n4 from 'neo4j-driver';
-import config from '../config';
+import { neo4jSession } from '../helpers';
 
-const neo4j = n4.v1;
-const driver = neo4j.driver('http://localhost', neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
-const session = driver.session();
+const getCitiesAsync = () => {
+  const query = `
+    MATCH (c:City)
+    RETURN
+      c
+  `;
+  return new Promise((resolve, reject) => {
+    neo4jSession()
+      .run(query)
+      .then((results) => {
+        if (results.records.length < 1) {
+          reject('No coworks found');
+        } else {
+          const dataList = [];
+          results.records.forEach((record) => {
+            const item = {};
+            record.keys.forEach((el, i) => {
+              if (record.keys[i] === 'id') {
+                item[record.keys[i]] = record._fields[i].low;
+              } else {
+                item[record.keys[i]] = record._fields[i];
+              }
+            });
+            dataList.push(item);
+          });
+          resolve(dataList);
+        }
+      })
+      .catch(reject);
+  });
+};
 
-session.run(
-  `MATCH (n:City)
-   RETURN count(*) as Cities`
-).then((results) => {
-  console.log(results.records[0]._fields[0]);
-  session.close();
-  driver.close();
-})
-.catch((err) => {
-  console.log(err);
-});
+export async function getCities() {
+  try {
+    const citiesList = await getCitiesAsync();
+    return citiesList;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+}
