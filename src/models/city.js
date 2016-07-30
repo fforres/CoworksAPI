@@ -37,7 +37,7 @@ export async function getCities() {
     const citiesList = await getCitiesAsync();
     return citiesList;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }

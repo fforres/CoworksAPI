@@ -46,13 +46,13 @@ export async function getCountryById(id) {
     const countryById = await getCountryByIdAsync(id);
     return countryById;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
 
 
-const getcountryByNameAsync = (name) => {
+const getCountryByNameAsync = (name) => {
   const query = `
     MATCH (c:Country {
       name: {name}
@@ -94,12 +94,12 @@ const getcountryByNameAsync = (name) => {
   });
 };
 
-export async function getcountryByName(name) {
+export async function getCountryByName(name) {
   try {
-    const countryByName = await getcountryByNameAsync(name);
+    const countryByName = await getCountryByNameAsync(name);
     return countryByName;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
@@ -146,7 +146,7 @@ export async function getCountries() {
     const countriesList = await getCountriesAsync();
     return countriesList;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return err;
   }
 }
