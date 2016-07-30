@@ -1,5 +1,5 @@
-import { GraphQLString, GraphQLNonNull } from 'graphql';
-import { coworkType, coworksListType } from '../types';
+import { GraphQLString, GraphQLNonNull,GraphQLObjectType,GraphQLList } from 'graphql';
+import { coworkType } from '../types';
 import { getCoworkById, getCoworkByName, getCoworks } from '../models';
 
 export const coworkByName = {
@@ -30,7 +30,38 @@ export const coworkById = {
   resolve: (root, { id }) => getCoworkById(id),
 };
 
+let coworkers = [{
+  name: 'Co-Work - Santiago Centro',
+  id: 3636,
+  country: 'CL',
+  city: 'santiago',
+  number: '863',
+  phoneNumber: '+56985135860',
+  latitud: -33.4394101,
+  longitud: -70.649078,
+  webpage: 'http://www.coworklatam.com/'
+
+}, {
+  name: 'La Ofi',
+  id: 3637,
+  country: 'CL',
+  city: 'santiago',
+  number: '140',
+  phoneNumber: '+56229854768',
+  latitud: -33.441609,
+  longitud: -70.6297092,
+  webpage: 'http://www.coworkinglaofi.cl/'
+}
+];
+
 export const coworkList = {
-  type: coworksListType,
-  resolve: () => getCoworks(),
+  name: 'CoworkList',
+  description: '...',
+  type: new GraphQLList(coworkType),
+  args: {},
+  resolve: () => {
+    return new Promise((resolve)=>{
+        resolve(coworkers);
+    })
+  },
 };
