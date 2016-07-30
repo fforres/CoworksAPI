@@ -1,30 +1,93 @@
-import { neo4jSession } from '../helpers';
+import { neo4jSession, createObject } from '../helpers';
+
+const getCityByIdAsync = (id) => {
+  const query = `
+    MATCH (c:City)
+    WHERE ID(c) = toInt({id})
+    RETURN
+      ID(c) as id,
+      c.name as name
+  `;
+  const params = {
+    id,
+  };
+
+  return new Promise((resolve, reject) => {
+    neo4jSession()
+      .run(query, params)
+      .then((results) => {
+        if (results.records.length < 1) {
+          reject('No cities found');
+        } else {
+          const dataList = createObject(results);
+          resolve(dataList[0]);
+        }
+      })
+      .catch(reject);
+  });
+};
+
+export async function getCityById(name) {
+  try {
+    return await getCityByIdAsync(name);
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+const getCityByNameAsync = (name) => {
+  const query = `
+    MATCH (c:City {
+      name: {name}
+    })
+    RETURN
+      ID(c) as id,
+      c.name as name
+  `;
+  const params = {
+    name,
+  };
+  return new Promise((resolve, reject) => {
+    neo4jSession()
+      .run(query, params)
+      .then((results) => {
+        if (results.records.length < 1) {
+          reject('No cities found');
+        } else {
+          const dataList = createObject(results);
+          resolve(dataList[0]);
+        }
+      })
+      .catch(reject);
+  });
+};
+
+export async function getCityByName(name) {
+  try {
+    return await getCityByNameAsync(name);
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
 
 const getCitiesAsync = () => {
   const query = `
     MATCH (c:City)
     RETURN
-      c
+      ID(c) as id,
+      c.name as name
   `;
   return new Promise((resolve, reject) => {
     neo4jSession()
       .run(query)
       .then((results) => {
         if (results.records.length < 1) {
-          reject('No coworks found');
+          reject('No cities found');
         } else {
-          const dataList = [];
-          results.records.forEach((record) => {
-            const item = {};
-            record.keys.forEach((el, i) => {
-              if (record.keys[i] === 'id') {
-                item[record.keys[i]] = record._fields[i].low;
-              } else {
-                item[record.keys[i]] = record._fields[i];
-              }
-            });
-            dataList.push(item);
-          });
+          const dataList = createObject(results);
           resolve(dataList);
         }
       })
@@ -34,8 +97,7 @@ const getCitiesAsync = () => {
 
 export async function getCities() {
   try {
-    const citiesList = await getCitiesAsync();
-    return citiesList;
+    return await getCitiesAsync();
   } catch (err) {
     console.error(err);
     return err;

@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLInt } from 'graphql';
 import { cityType, cityListType } from '../types';
 import { getCityByName, getCityById, getCities } from '../models';
 
@@ -20,7 +20,7 @@ export const cityById = {
   type: cityType,
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(GraphQLInt),
       description: 'Unique City ID',
     },
   },

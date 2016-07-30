@@ -1,4 +1,5 @@
 import { GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLList } from 'graphql';
+import { cityListType } from './city';
 
 export const countryType = new GraphQLObjectType({
   name: 'Country',
@@ -22,6 +23,10 @@ export const countryType = new GraphQLObjectType({
     tld: {
       type: GraphQLString,
       description: 'TLD  for the country',
+    },
+    cities: {
+      type: new GraphQLList(cityListType),
+      description: 'Country Cities',
     },
   }),
 });

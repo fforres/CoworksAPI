@@ -11,3 +11,25 @@ export const neo4jSession = () => {
   }
   return session;
 };
+
+
+// CreateObject
+export const createObject = (results) => {
+  const dataList = [];
+  results.records.forEach((record) => {
+    const item = {};
+    record.keys.forEach((el, i) => {
+      if (record.keys[i] === 'id') {
+        item[record.keys[i]] = record._fields[i].low;
+      } else {
+        item[record.keys[i]] = record._fields[i];
+      }
+    });
+    dataList.push(item);
+  });
+  return dataList;
+};
+
+// const isInArray = (key, arr) => {
+//   return (arr.indexOf(key) !== -1);
+// };

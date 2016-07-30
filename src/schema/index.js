@@ -2,7 +2,7 @@ import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import {
   coworkByName, coworkById, coworkList,
   countryByName, countryById, countryList,
-  cityByName, cityById, cityList,
+  cityByName, cityById, cityList, countryCities,
 } from '../queries';
 
 const schema = new GraphQLSchema({
@@ -13,11 +13,12 @@ const schema = new GraphQLSchema({
       coworkByName,
       coworkById,
       countryByName,
-      // countryById,
+      countryById,
       countryList,
-      // cityByName,
-      // cityById,
-      // cityList,
+      countryCities,
+      cityByName,
+      cityById,
+      cityList,
     }),
   }),
 });

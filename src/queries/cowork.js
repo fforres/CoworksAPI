@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLInt } from 'graphql';
 import { coworkType, coworkListType } from '../types';
 import { getCoworkById, getCoworkByName, getCoworks } from '../models';
 
@@ -19,7 +19,7 @@ export const coworkById = {
   type: coworkType,
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(GraphQLInt),
       description: 'Unique Cowork ID',
     },
   },
