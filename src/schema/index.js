@@ -8,7 +8,7 @@ import { coworkByName, coworkById, coworkList } from '../queries';
 const schema = new GraphQLSchema({
   query: new GraphQLObjectType({
     name: 'Query',
-    fields: ()=>({
+    fields: () => ({
       coworkList,
       coworkByName,
       coworkById,
