@@ -25,7 +25,7 @@ export const getCoworkByIdAsync = (id) => {
         if (results.records.length < 1) {
           reject('No coworks found');
         } else {
-          const dataList = createObject(results);
+          const dataList = createObject(results.records);
           resolve(dataList[0]);
         }
       })
@@ -47,7 +47,7 @@ export async function getCoworkById(id) {
 const getCoworkByNameAsync = (name) => {
   const query = `
     MATCH (c:Cowork {
-      name: {name}
+      nameLower: lower({name})
     })
     RETURN
     c.name as name,
@@ -71,7 +71,7 @@ const getCoworkByNameAsync = (name) => {
         if (results.records.length < 1) {
           reject('No coworks found');
         } else {
-          const dataList = createObject(results);
+          const dataList = createObject(results.records);
           resolve(dataList[0]);
         }
       })
@@ -111,7 +111,7 @@ const getCoworksAsync = () => {
         if (results.records.length < 1) {
           reject('No coworks found');
         } else {
-          const dataList = createObject(results);
+          const dataList = createObject(results.records);
           resolve(dataList);
         }
       })

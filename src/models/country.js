@@ -25,7 +25,7 @@ export const getCountryByIdAsync = (id) => {
         if (results.records.length < 1) {
           reject('No cities found');
         } else {
-          const dataList = createObject(results);
+          const dataList = createObject(results.records);
           resolve(dataList[0]);
         }
       })
@@ -43,65 +43,10 @@ export async function getCountryById(id) {
   }
 }
 
-
-
-
-export const getCountryCitiesAsync = (id) => {
-  const query = `
-    MATCH (c:Country)-[:HAS]->(ct:City)
-    WHERE ID(c) = 220
-    RETURN
-      c.isoCode as isoCode,
-      c.name as name,
-      c.fipsCode as code,
-      c.tld as tld,
-      ID(c) as id,
-      ct as cities
-  `;
-  const params = {
-    id,
-  };
-  return new Promise((resolve, reject) => {
-    neo4jSession()
-      .run(query, params)
-      .then((results) => {
-        if (results.records.length < 1) {
-          reject('No cities found');
-        } else {
-          const dataList = [];
-          results.records.forEach((record) => {
-            const item = {};
-            record.keys.forEach((el, i) => {
-              if (record.keys[i] === 'id') {
-                item[record.keys[i]] = record._fields[i].low;
-              } else {
-                item[record.keys[i]] = record._fields[i];
-              }
-            });
-            dataList.push(item);
-          });
-          resolve(dataList[0]);
-        }
-      })
-      .catch(reject);
-  });
-};
-
-export async function getCountryCities(id) {
-  try {
-    const countryById = await getCountryCitiesAsync(id);
-    return countryById;
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
-}
-
-
 const getCountryByNameAsync = (name) => {
   const query = `
     MATCH (c:Country {
-      name: {name}
+      nameLower: lower({name})
     })
     RETURN
       ID(c) as id,
@@ -121,7 +66,7 @@ const getCountryByNameAsync = (name) => {
         if (results.records.length < 1) {
           reject('No countries found');
         } else {
-          const dataList = createObject(results);
+          const dataList = createObject(results.records);
           resolve(dataList[0]);
         }
       })
@@ -157,7 +102,7 @@ const getCountriesAsync = () => {
         if (results.records.length < 1) {
           reject('No countries found');
         } else {
-          const dataList = createObject(results);
+          const dataList = createObject(results.records);
           resolve(dataList);
         }
       })

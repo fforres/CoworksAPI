@@ -1,8 +1,19 @@
-import { GraphQLSchema, GraphQLObjectType } from 'graphql';
 import {
-  coworkByName, coworkById, coworkList,
-  countryByName, countryById, countryList,
-  cityByName, cityById, cityList, countryCities,
+  GraphQLSchema,
+  GraphQLObjectType,
+} from 'graphql';
+import {
+  coworkByName,
+  coworkById,
+  coworkList,
+  countryByName,
+  countryById,
+  countryList,
+  cityByName,
+  cityById,
+  cityList,
+  citiesByCountry,
+  citiesContainingText,
 } from '../queries';
 
 const schema = new GraphQLSchema({
@@ -15,10 +26,11 @@ const schema = new GraphQLSchema({
       countryByName,
       countryById,
       countryList,
-      countryCities,
       cityByName,
       cityById,
       cityList,
+      citiesByCountry,
+      citiesContainingText,
     }),
   }),
 });

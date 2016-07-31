@@ -10,7 +10,13 @@ export const countryType = new GraphQLObjectType({
     },
     id: {
       type: GraphQLInt,
-      description: 'Unique country ID',
+      description: 'Unique city ID',
+      resolve: (obj) => {
+        if (obj.id && obj.id.low) {
+          return obj.id.low;
+        }
+        return null;
+      },
     },
     code: {
       type: GraphQLString,
