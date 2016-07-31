@@ -1,19 +1,19 @@
-import { neo4jSession } from '../helpers';
+import { neo4jSession, createObject } from '../helpers';
 
 export const getCoworkByIdAsync = (id) => {
   const query = `
-    MATCH (a:Cowork)
-    WHERE ID(a)= {id}
+    MATCH (c:Cowork)
+    WHERE ID(c) = toInt({id})
     RETURN
-    a.name as name,
-    ID(a) as id,
-    a.country as country,
-    a.city as city,
-    a.number as number,
-    a.phone as phoneNumber,
-    a.lat as latitud,
-    a.long as longitud,
-    a.url as webpage
+    c.name as name,
+    ID(c) as id,
+    c.country as country,
+    c.city as city,
+    c.number as number,
+    c.phone as phoneNumber,
+    c.lat as latitud,
+    c.long as longitud,
+    c.url as webpage
   `;
   const params = {
     id,
@@ -22,19 +22,11 @@ export const getCoworkByIdAsync = (id) => {
     neo4jSession()
       .run(query, params)
       .then((results) => {
-        const record = results.records[0];
         if (results.records.length < 1) {
           reject('No coworks found');
         } else {
-          const cowork = {};
-          record.keys.forEach((el, i) => {
-            if (record.keys[i] === 'id') {
-              cowork[record.keys[i]] = record._fields[i].low;
-            } else {
-              cowork[record.keys[i]] = record._fields[i];
-            }
-          });
-          resolve(cowork);
+          const dataList = createObject(results.records);
+          resolve(dataList[0]);
         }
       })
       .catch(reject);
@@ -54,19 +46,19 @@ export async function getCoworkById(id) {
 
 const getCoworkByNameAsync = (name) => {
   const query = `
-    MATCH (a:Cowork {
-      name: {name}
+    MATCH (c:Cowork {
+      nameLower: lower({name})
     })
     RETURN
-    a.name as name,
-    ID(a) as id,
-    a.country as country,
-    a.city as city,
-    a.number as number,
-    a.phone as phoneNumber,
-    a.lat as latitud,
-    a.long as longitud,
-    a.url as webpage
+    c.name as name,
+    ID(c) as id,
+    c.country as country,
+    c.city as city,
+    c.number as number,
+    c.phone as phoneNumber,
+    c.lat as latitud,
+    c.long as longitud,
+    c.url as webpage
     LIMIT 1
   `;
   const params = {
@@ -79,19 +71,8 @@ const getCoworkByNameAsync = (name) => {
         if (results.records.length < 1) {
           reject('No coworks found');
         } else {
-          const coworks = [];
-          results.records.forEach((record) => {
-            const cowork = {};
-            record.keys.forEach((el, i) => {
-              if (record.keys[i] === 'id') {
-                cowork[record.keys[i]] = record._fields[i].low;
-              } else {
-                cowork[record.keys[i]] = record._fields[i];
-              }
-            });
-            coworks.push(cowork);
-          });
-          resolve(coworks[0]);
+          const dataList = createObject(results.records);
+          resolve(dataList[0]);
         }
       })
       .catch(reject);
@@ -111,17 +92,17 @@ export async function getCoworkByName(name) {
 
 const getCoworksAsync = () => {
   const query = `
-    MATCH (a:Cowork)
+    MATCH (c:Cowork)
     RETURN
-      a.name as name,
-      ID(a) as id,
-      a.country as country,
-      a.city as city,
-      a.number as number,
-      a.phone as phoneNumber,
-      a.lat as latitud,
-      a.long as longitud,
-      a.url as webpage
+      c.name as name,
+      ID(c) as id,
+      c.country as country,
+      c.city as city,
+      c.number as number,
+      c.phone as phoneNumber,
+      c.lat as latitud,
+      c.long as longitud,
+      c.url as webpage
   `;
   return new Promise((resolve, reject) => {
     neo4jSession()
@@ -130,19 +111,8 @@ const getCoworksAsync = () => {
         if (results.records.length < 1) {
           reject('No coworks found');
         } else {
-          const coworks = [];
-          results.records.forEach((record) => {
-            const cowork = {};
-            record.keys.forEach((el, i) => {
-              if (record.keys[i] === 'id') {
-                cowork[record.keys[i]] = record._fields[i].low;
-              } else {
-                cowork[record.keys[i]] = record._fields[i];
-              }
-            });
-            coworks.push(cowork);
-          });
-          resolve(coworks);
+          const dataList = createObject(results.records);
+          resolve(dataList);
         }
       })
       .catch(reject);

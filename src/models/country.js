@@ -1,19 +1,19 @@
-import { neo4jSession } from '../helpers';
+import { neo4jSession, createObject } from '../helpers';
 
 export const getCountryByIdAsync = (id) => {
   const query = `
     MATCH (c:Country)
-    WHERE ID(c)= {id}
+    WHERE ID(c) = toInt({id})
     RETURN
-    c.code
-    ID(a) as id,
-    a.country as country,
-    a.city as city,
-    a.number as number,
-    a.phone as phoneNumber,
-    a.lat as latitud,
-    a.long as longitud,
-    a.url as webpage
+      c.code,
+      ID(c) as id,
+      c.country as country,
+      c.city as city,
+      c.number as number,
+      c.phone as phoneNumber,
+      c.lat as latitud,
+      c.long as longitud,
+      c.url as webpage
   `;
   const params = {
     id,
@@ -22,19 +22,11 @@ export const getCountryByIdAsync = (id) => {
     neo4jSession()
       .run(query, params)
       .then((results) => {
-        const record = results.records[0];
         if (results.records.length < 1) {
-          reject('No coworks found');
+          reject('No cities found');
         } else {
-          const cowork = {};
-          record.keys.forEach((el, i) => {
-            if (record.keys[i] === 'id') {
-              cowork[record.keys[i]] = record._fields[i].low;
-            } else {
-              cowork[record.keys[i]] = record._fields[i];
-            }
-          });
-          resolve(cowork);
+          const dataList = createObject(results.records);
+          resolve(dataList[0]);
         }
       })
       .catch(reject);
@@ -51,11 +43,10 @@ export async function getCountryById(id) {
   }
 }
 
-
 const getCountryByNameAsync = (name) => {
   const query = `
     MATCH (c:Country {
-      name: {name}
+      nameLower: lower({name})
     })
     RETURN
       ID(c) as id,
@@ -73,20 +64,9 @@ const getCountryByNameAsync = (name) => {
       .run(query, params)
       .then((results) => {
         if (results.records.length < 1) {
-          reject('No coworks found');
+          reject('No countries found');
         } else {
-          const dataList = [];
-          results.records.forEach((record) => {
-            const item = {};
-            record.keys.forEach((el, i) => {
-              if (record.keys[i] === 'id') {
-                item[record.keys[i]] = record._fields[i].low;
-              } else {
-                item[record.keys[i]] = record._fields[i];
-              }
-            });
-            dataList.push(item);
-          });
+          const dataList = createObject(results.records);
           resolve(dataList[0]);
         }
       })
@@ -120,20 +100,9 @@ const getCountriesAsync = () => {
       .run(query)
       .then((results) => {
         if (results.records.length < 1) {
-          reject('No coworks found');
+          reject('No countries found');
         } else {
-          const dataList = [];
-          results.records.forEach((record) => {
-            const item = {};
-            record.keys.forEach((el, i) => {
-              if (record.keys[i] === 'id') {
-                item[record.keys[i]] = record._fields[i].low;
-              } else {
-                item[record.keys[i]] = record._fields[i];
-              }
-            });
-            dataList.push(item);
-          });
+          const dataList = createObject(results.records);
           resolve(dataList);
         }
       })

@@ -1,3 +1,3 @@
 export { getCoworkById, getCoworkByName, getCoworks } from './cowork';
-export { getCityById, getCityByName, getCities } from './city';
+export { getCityByName, getCityById, getCities, getCitiesByCountry, getCitiesContainingText } from './city';
 export { getCountryByName, getCountryById, getCountries } from './country';

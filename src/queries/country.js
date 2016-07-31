@@ -1,4 +1,4 @@
-import { GraphQLString, GraphQLNonNull } from 'graphql';
+import { GraphQLString, GraphQLNonNull, GraphQLInt } from 'graphql';
 import { countryType, countryListType } from '../types';
 import { getCountryById, getCountryByName, getCountries } from '../models';
 
@@ -20,7 +20,7 @@ export const countryById = {
   type: countryType,
   args: {
     id: {
-      type: new GraphQLNonNull(GraphQLString),
+      type: new GraphQLNonNull(GraphQLInt),
       description: 'Unique Country ID',
     },
   },

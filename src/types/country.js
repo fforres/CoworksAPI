@@ -1,4 +1,5 @@
 import { GraphQLString, GraphQLObjectType, GraphQLInt, GraphQLList } from 'graphql';
+import { cityListType } from './city';
 
 export const countryType = new GraphQLObjectType({
   name: 'Country',
@@ -9,7 +10,13 @@ export const countryType = new GraphQLObjectType({
     },
     id: {
       type: GraphQLInt,
-      description: 'Unique country ID',
+      description: 'Unique city ID',
+      resolve: (obj) => {
+        if (obj.id && obj.id.low) {
+          return obj.id.low;
+        }
+        return null;
+      },
     },
     code: {
       type: GraphQLString,
@@ -22,6 +29,10 @@ export const countryType = new GraphQLObjectType({
     tld: {
       type: GraphQLString,
       description: 'TLD  for the country',
+    },
+    cities: {
+      type: new GraphQLList(cityListType),
+      description: 'Country Cities',
     },
   }),
 });
