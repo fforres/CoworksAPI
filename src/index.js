@@ -5,12 +5,12 @@ import schema from './schema';
 express().use('/', graphqlHTTP({
   schema,
   pretty: true,
-})).listen(3000);
+})).listen(3009);
 
 if (process.env.NODE_ENV === 'development') {
   express().use('/', graphqlHTTP({
     schema,
     pretty: true,
     graphiql: true,
-  })).listen(3001);
+  })).listen(3010);
 }
