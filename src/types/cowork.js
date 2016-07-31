@@ -10,6 +10,12 @@ export const coworkType = new GraphQLObjectType({
     id: {
       type: GraphQLInt,
       description: 'Unique Cowork ID',
+      resolve: (obj) => {
+        if (obj.id && obj.id.low) {
+          return obj.id.low;
+        }
+        return null;
+      },
     },
     phoneNumber: {
       type: GraphQLString,
