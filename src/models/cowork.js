@@ -2,21 +2,21 @@ import { neo4jSession, createObject } from '../helpers';
 
 export const getCoworkByIdAsync = (id) => {
   const query = `
-    MATCH (c:Cowork)
+    MATCH (c:Cowork)-[:IS_FROM]->(ct:City)
     WHERE ID(c) = toInt({id})
     RETURN
-    c.name as name,
-    ID(c) as id,
-    c.country as country,
-    c.city as city,
-    c.number as number,
-    c.street as street,
-    c.phone as phoneNumber,
-    c.lat as latitud,
-    c.long as longitud,
-    c.url as webpage,
-    c.longDescription as longDescription,
-    c.longDescription as shortDescription
+      c.name as name,
+      ID(c) as id,
+      c.number as number,
+      c.street as street,
+      c.phone as phoneNumber,
+      c.lat as latitud,
+      c.long as longitud,
+      c.url as webpage,
+      c.longDescription as longDescription,
+      c.longDescription as shortDescription,
+
+      ct as City
   `;
   const params = {
     id,
@@ -49,22 +49,21 @@ export async function getCoworkById(id) {
 
 const getCoworkByNameAsync = (name) => {
   const query = `
-    MATCH (c:Cowork {
-      nameLower: lower({name})
-    })
+    MATCH (c:Cowork)-[:IS_FROM]->(ct:City)
+    WHERE nameLower = lower({name})
     RETURN
-    c.name as name,
-    ID(c) as id,
-    c.country as country,
-    c.city as city,
-    c.number as number,
-    c.street as street,
-    c.phone as phoneNumber,
-    c.lat as latitud,
-    c.long as longitud,
-    c.url as webpage,
-    c.longDescription as longDescription,
-    c.longDescription as shortDescription
+      c.name as name,
+      ID(c) as id,
+      c.number as number,
+      c.street as street,
+      c.phone as phoneNumber,
+      c.lat as latitud,
+      c.long as longitud,
+      c.url as webpage,
+      c.longDescription as longDescription,
+      c.longDescription as shortDescription,
+
+      ct as City
     LIMIT 1
   `;
   const params = {
@@ -98,12 +97,12 @@ export async function getCoworkByName(name) {
 
 const getCoworksAsync = () => {
   const query = `
-    MATCH (c:Cowork)
+    MATCH
+      (c:Cowork)-[:IS_FROM]->(ct:City),
+      (c:Cowork)-[:IS_FROM]->(co:Country)
     RETURN
       c.name as name,
       ID(c) as id,
-      c.country as country,
-      c.city as city,
       c.number as number,
       c.street as street,
       c.phone as phoneNumber,
@@ -111,7 +110,10 @@ const getCoworksAsync = () => {
       c.long as longitud,
       c.url as webpage,
       c.longDescription as longDescription,
-      c.longDescription as shortDescription
+      c.longDescription as shortDescription,
+
+      ct as City,
+      co as Country
   `;
   return new Promise((resolve, reject) => {
     neo4jSession()

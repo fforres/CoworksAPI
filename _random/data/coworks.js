@@ -1,5 +1,5 @@
 import n4 from 'neo4j-driver';
-import config from '../config';
+import config from '../../src/config';
 const neo4j = n4.v1;
 const driver = neo4j.driver('http://localhost', neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
 const session = driver.session();
@@ -21,12 +21,14 @@ const doLoad = (coworks) => {
       phone: {phone},
       url: {url}
     })
-    MERGE (c:Country {code: cwrk:country })
-    MERGE (ct:City {code: cwrk:city })
+    MERGE (c:Country {isoCode: {country} })
+    MERGE (ct:City {name: {city} })
     CREATE (cwrk)-[:IS_FROM]->(c)
     CREATE (cwrk)-[:IS_FROM]->(ct)
-    CREATE (ct)-[:HAS]->(c)
+    CREATE (ct)-[:HAS]->(cwrk)
+    CREATE (c)-[:HAS]->(cwrk)
     RETURN cwrk`;
+
   Object.keys(coworks.coworks).forEach((el) => {
     const cowork = coworks.coworks[el];
     delete cowork.images;
