@@ -1,6 +1,6 @@
 import { GraphQLString, GraphQLNonNull, GraphQLInt } from 'graphql';
 import { coworkType, coworkListType } from '../types';
-import { getCoworkById, getCoworkByName, getCoworks } from '../models';
+import { getCoworkById, getCoworkByName, getCoworks, getCoworkThatContainsName } from '../models';
 
 export const coworkByName = {
   name: 'coworkByName',
@@ -12,6 +12,19 @@ export const coworkByName = {
     },
   },
   resolve: (root, { name }) => getCoworkByName(name),
+};
+
+
+export const coworkByNameContainingText = {
+  name: 'coworkByName',
+  type: coworkType,
+  args: {
+    name: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: 'Cowork Display Name',
+    },
+  },
+  resolve: (root, { name }) => getCoworkThatContainsName(name),
 };
 
 
