@@ -172,7 +172,6 @@ export const getCitiesContainingTextAsync = (name) => {
           reject('No cities found');
         } else {
           const dataList = createObject(results.records);
-          console.log(dataList);
           resolve(dataList);
         }
       })
