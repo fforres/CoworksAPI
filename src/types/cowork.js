@@ -17,6 +17,22 @@ export const coworkType = new GraphQLObjectType({
         return null;
       },
     },
+    longDescription: {
+      type: GraphQLString,
+      description: 'Long text with the description of the cowork',
+    },
+    shortDescription: {
+      type: GraphQLString,
+      description: 'Short text with the description of the cowork, hopefully a catch-frase or something around 20 words',
+    },
+    street: {
+      type: GraphQLString,
+      description: 'Address - Street Name',
+    },
+    number: {
+      type: GraphQLString,
+      description: 'Address - Number',
+    },
     phoneNumber: {
       type: GraphQLString,
       description: 'Contact telepone number for the cowork',

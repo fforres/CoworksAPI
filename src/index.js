@@ -1,8 +1,10 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import schema from './schema';
+import cors from 'cors';
 
-express().use('/', graphqlHTTP({
+
+express().use('/', cors(), graphqlHTTP({
   schema,
   pretty: true,
 })).listen(3009);

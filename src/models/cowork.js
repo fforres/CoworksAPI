@@ -10,10 +10,13 @@ export const getCoworkByIdAsync = (id) => {
     c.country as country,
     c.city as city,
     c.number as number,
+    c.street as street,
     c.phone as phoneNumber,
     c.lat as latitud,
     c.long as longitud,
-    c.url as webpage
+    c.url as webpage,
+    c.longDescription as longDescription,
+    c.longDescription as shortDescription
   `;
   const params = {
     id,
@@ -55,10 +58,13 @@ const getCoworkByNameAsync = (name) => {
     c.country as country,
     c.city as city,
     c.number as number,
+    c.street as street,
     c.phone as phoneNumber,
     c.lat as latitud,
     c.long as longitud,
-    c.url as webpage
+    c.url as webpage,
+    c.longDescription as longDescription,
+    c.longDescription as shortDescription
     LIMIT 1
   `;
   const params = {
@@ -99,10 +105,13 @@ const getCoworksAsync = () => {
       c.country as country,
       c.city as city,
       c.number as number,
+      c.street as street,
       c.phone as phoneNumber,
       c.lat as latitud,
       c.long as longitud,
-      c.url as webpage
+      c.url as webpage,
+      c.longDescription as longDescription,
+      c.longDescription as shortDescription
   `;
   return new Promise((resolve, reject) => {
     neo4jSession()
