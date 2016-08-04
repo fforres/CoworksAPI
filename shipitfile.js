@@ -3,6 +3,7 @@ var chalk = require('chalk');
 var CWD = '/home/travis/build/fforres/CoworksAPI';
 
 module.exports = function (shipit) {
+  console.log(shipit);
   shipitDeploy(shipit);
   shipit.initConfig({
     default: {
@@ -42,7 +43,7 @@ module.exports = function (shipit) {
   })
   shipit.blTask('run', function() {
     shipit.log(chalk.green('Running proyect'));
-    return shipit.remote('NODE_ENV=production && node ' + shipit.config.deployTo + '/current/dist &' )
+    return shipit.remote('pm2 startOrRestart ' + shipit.config.deployTo + '/current/pm2_ecosystem.json' )
   })
   shipit.task('post-publish', ['install','run'], function() {
     shipit.log(chalk.green('Deploy Finally finished'));
