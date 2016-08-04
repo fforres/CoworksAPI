@@ -4,7 +4,6 @@ node_js:
 addons:
   ssh_known_hosts: coworks.cl
 before_deploy:
-- npm install -g shipit
 - eval "$(ssh-agent -s)"
 - ls -al
 - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
