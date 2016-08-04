@@ -1,6 +1,5 @@
 import n4 from 'neo4j-driver';
 import config from '../config';
-// import util from 'util';
 
 const neo4j = n4.v1;
 const driver = neo4j.driver('http://127.0.0.1', neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
