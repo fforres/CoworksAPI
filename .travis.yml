@@ -1,11 +1,14 @@
+sudo: false
 language: node_js
+cache:
+  directories:
+  - node_modules # NPM packages
 node_js:
 - 6
 addons:
   ssh_known_hosts: coworks.cl
 before_deploy:
 - eval "$(ssh-agent -s)"
-- ls -al
 - chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
 - ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
 deploy:
@@ -17,7 +20,6 @@ deploy:
 before_install:
 - openssl aes-256-cbc -K $encrypted_ddfaf0389a7e_key -iv $encrypted_ddfaf0389a7e_iv
   -in $TRAVIS_BUILD_DIR/deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa -d
-- ls -al
 after_deploy:
 - rm deploy_rsa
 after_script:
