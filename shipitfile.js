@@ -15,7 +15,7 @@ module.exports = function (shipit) {
     },
     production: {
       servers: [{
-        host: '200.86.6.132',
+        host: '104.236.164.134',
         user: 'deploy',
       }],
     },
