@@ -24,12 +24,12 @@ module.exports = function (shipit) {
     },
   });
   shipit.task('install', function () {
-    return shipit.remote('npm install');
+    return shipit.remote('cd /var/www/coworks_api && npm install');
   });
   shipit.task('build', ['install'], function () {
-    return shipit.remote('npm run build');
+    return shipit.remote('cd /var/www/coworks_api && npm run build');
   });
   shipit.task('start', ['build'], function () {
-    return shipit.remote('NODE_ENV=production && node dist');
+    return shipit.remote('cd /var/www/coworks_api && NODE_ENV=production && node dist');
   });
 };
