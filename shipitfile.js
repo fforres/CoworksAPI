@@ -13,7 +13,7 @@ module.exports = function (shipit) {
       ignores: ['.git', 'node_modules'],
       deleteOnRollback: true,
       key: '/tmp/deploy_rsa_new',
-      keepReleases: 2,
+      keepReleases: 3,
       rsync: ['--del'],
     },
     production: {
@@ -27,14 +27,26 @@ module.exports = function (shipit) {
     },
   });
 
+  // Events!
   shipit.on("deploy", function() {
-      shipit.log("DEPLOY STARTED");
-      // notify(":pushpin: " + project_name + " *Deploying...*");
+    shipit.log(chalk.green('DEPLOY STARTED'));
   });
-  shipit.on("deploy:finished", function() {
-      shipit.log(chalk.green('DEPLOY FINISHED'));
-      // notify(":pushpin: " + project_name + " *Deploying...*");
+  shipit.on("published", function() {
+    shipit.start('post-publish');
   });
+
+
+  shipit.blTask('install', function() {
+    shipit.log(chalk.green('Installing Dependencies: ' + shipit.config.deployTo + '/current'));
+    return shipit.remote('NODE_ENV=production && npm --production --prefix ' + shipit.config.deployTo + '/current' + ' install ' + shipit.config.deployTo + '/current')
+  })
+  shipit.blTask('run', function() {
+    shipit.log(chalk.green('Running proyect'));
+    return shipit.remote('NODE_ENV=production && node ' + shipit.config.deployTo + '/current/dist &' )
+  })
+  shipit.task('post-publish', ['install','run'], function() {
+    shipit.log(chalk.green('Deploy Finally finished'));
+  })
 
   // shipit.task('build', function () {
   //   shipit.log(chalk.green('Building Production/Dist code (npm run build)'));
