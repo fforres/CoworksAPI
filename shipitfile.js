@@ -1,4 +1,7 @@
-const shipitDeploy = require('shipit-deploy');
+var shipitDeploy = require('shipit-deploy');
+var chalk = require('chalk');
+var CWD = '/home/travis/build/fforres/CoworksAPI';
+
 module.exports = function (shipit) {
   shipitDeploy(shipit);
   shipit.initConfig({
@@ -23,13 +26,19 @@ module.exports = function (shipit) {
       servers: 'localhost',
     },
   });
-  shipit.task('shipit_install', function () {
-    return shipit.remote('cd /var/www/coworks_api && npm install');
+  shipit.task('build', function () {
+    shipit.log(chalk.green('Building Production/Dist code (npm run build)'));
+    return shipit.local('npm run build', {cwd: CWD});
   });
-  shipit.task('shipit_build', ['shipit_install'], function () {
-    return shipit.remote('cd /var/www/coworks_api && npm run build');
+  shipit.task('copy_source', ['build'], function () {
+    shipit.log(chalk.green('Copying sourcecode to: ' + shipit.config.deployTo));
+    shipit.remoteCopy(CWD, shipit.config.deployTo)
+  })
+  shipit.task('remote_install', ['copy_source'], function () {
+    shipit.log(chalk.green('Copying sourcecode to: ' + shipit.config.deployTo));
+    return shipit.remote('cd /var/www/coworks_api && NODE_ENV=production && npm install');
   });
-  shipit.task('shipit_start', ['shipit_build'], function () {
+  shipit.task('start', ['remote_install'], function () {
     return shipit.remote('cd /var/www/coworks_api && NODE_ENV=production && node dist');
   });
 };

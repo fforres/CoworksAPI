@@ -7,7 +7,7 @@
     "test": "echo \"Damn Daniel! No test specified yet\"",
     "start": "cross-env NODE_ENV=development nodemon index.js",
     "build": "cp -rf src dist && ./node_modules/.bin/babel --optional runtime -d dist ./src",
-    "deploy": "shipit production shipit_start"
+    "deploy": "shipit production start"
   },
   "author": "fforres",
   "license": "MIT",
@@ -31,6 +31,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.11.6",
     "babyparse": "^0.4.6",
+    "chalk": "^1.1.3",
     "csv": "^1.1.0",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
