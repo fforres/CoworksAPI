@@ -1,6 +1,6 @@
 {
   "neo4j": {
-    "url": "localhost",
+    "url": "10.134.4.72",
     "username": "neo4j",
     "password": "neo4j_",
     "port": 7474
