@@ -4,9 +4,10 @@
   "description": "graphql api for coworks retrieval information",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Damn Daniel! No test specified yet\"",
     "start": "cross-env NODE_ENV=development nodemon index.js",
-    "build": "cp -rf src dist && ./node_modules/.bin/babel --optional runtime -d dist ./src"
+    "build": "cp -rf src dist && ./node_modules/.bin/babel --optional runtime -d dist ./src",
+    "deploy": "shipit production pwd"
   },
   "author": "fforres",
   "license": "MIT",
@@ -37,7 +38,9 @@
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^5.2.2",
     "kue": "^0.11.1",
-    "nodemon": "^1.10.0"
+    "nodemon": "^1.10.0",
+    "shipit": "^1.0.2",
+    "shipit-deploy": "^2.2.0"
   },
   "babel": {
     "presets": [
