@@ -23,13 +23,13 @@ module.exports = function (shipit) {
       servers: 'localhost',
     },
   });
-  shipit.task('install', function () {
+  shipit.task('shipit_install', function () {
     return shipit.remote('cd /var/www/coworks_api && npm install');
   });
-  shipit.task('build', ['install'], function () {
+  shipit.task('shipit_build', ['shipit_install'], function () {
     return shipit.remote('cd /var/www/coworks_api && npm run build');
   });
-  shipit.task('start', ['build'], function () {
+  shipit.task('shipit_start', ['shipit_build'], function () {
     return shipit.remote('cd /var/www/coworks_api && NODE_ENV=production && node dist');
   });
 };
