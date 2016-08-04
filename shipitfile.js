@@ -30,6 +30,6 @@ module.exports = function (shipit) {
     return shipit.remote('npm run build');
   });
   shipit.task('start', ['build'], function () {
-    return shipit.remote('node dist');
+    return shipit.remote('NODE_ENV=production && node dist');
   });
 };
