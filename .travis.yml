@@ -2,17 +2,16 @@ sudo: false
 language: node_js
 cache:
   directories:
-  - node_modules # NPM packages
+  - node_modules
 node_js:
 - 6
 addons:
   ssh_known_hosts: api.coworks.cl
 before_deploy:
 - eval "$(ssh-agent -s)"
-- mv $TRAVIS_BUILD_DIR/deploy_rsa /tmp/deploy_rsa
-- chmod 600 /tmp/deploy_rsa
-- ssh-add /tmp/deploy_rsa
-
+- mv $TRAVIS_BUILD_DIR/deploy_rsa_new /tmp/deploy_rsa_new
+- chmod 600 /tmp/deploy_rsa_new
+- ssh-add /tmp/deploy_rsa_new
 deploy:
   provider: script
   skip_cleanup: true
@@ -21,8 +20,8 @@ deploy:
     branch: master
 before_install:
 - openssl aes-256-cbc -K $encrypted_ddfaf0389a7e_key -iv $encrypted_ddfaf0389a7e_iv
-  -in $TRAVIS_BUILD_DIR/deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa -d
+  -in $TRAVIS_BUILD_DIR/deploy_rsa_new.enc -out $TRAVIS_BUILD_DIR/deploy_rsa_new -d
 after_deploy:
-- rm deploy_rsa
+- rm deploy_rsa_new
 after_script:
 - echo "--------- DEPLOY DONE! ---------"
