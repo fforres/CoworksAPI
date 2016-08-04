@@ -61,7 +61,7 @@
     "rules": {
       "max-len": 0,
       "no-underscore-dangle": 0,
-      "jsx-sort-props": 0
+      "react/jsx-sort-props": 1
     },
     "settings": {}
   }
