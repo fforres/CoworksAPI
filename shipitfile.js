@@ -45,8 +45,12 @@ module.exports = function (shipit) {
     shipit.log(chalk.green('Running proyect'));
     return shipit.remote('pm2 startOrRestart ' + shipit.config.deployTo + '/current/pm2_ecosystem.json' )
   })
-  shipit.task('post-publish', ['install','run'], function() {
-    shipit.log(chalk.green('Deploy Finally finished'));
+  shipit.blTask('cleanup', function() {
+    shipit.log(chalk.green('Cleaning up some small things (i.e. Removing key)'));
+    return shipit.remote('rm ' + shipit.config.deployTo + '/current/deploy_rsa_new*' )
+  })
+  shipit.task('post-publish', ['install','run', 'cleanup'], function() {
+    shipit.log(chalk.green('Building / running finished on production'));
   })
 
   // shipit.task('build', function () {
