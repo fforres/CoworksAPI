@@ -6,7 +6,7 @@ cache:
 node_js:
 - 6
 addons:
-  ssh_known_hosts: coworks.cl
+  ssh_known_hosts: api.coworks.cl
 before_deploy:
 - eval "$(ssh-agent -s)"
 - mv $TRAVIS_BUILD_DIR/deploy_rsa /tmp/deploy_rsa
