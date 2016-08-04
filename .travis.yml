@@ -17,7 +17,8 @@ deploy:
       branch: master
 before_install:
 - openssl aes-256-cbc -K $encrypted_ddfaf0389a7e_key -iv $encrypted_ddfaf0389a7e_iv
-  -in $TRAVIS_BUILD_DIR/deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa
+  -in $TRAVIS_BUILD_DIR/deploy_rsa.enc -out $TRAVIS_BUILD_DIR/deploy_rsa -d
+- ls -al
 after_success:
   - rm deploy_rsa
   - echo "DONE!"
