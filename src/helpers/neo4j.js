@@ -12,7 +12,6 @@ export const neo4jSession = () => {
   return session;
 };
 
-
 // CreateObject
 export const createObject = (results) => {
   const dataList = [];
