@@ -9,7 +9,7 @@ module.exports = function (shipit) {
       branch: 'master',
       ignores: ['.git', 'node_modules'],
       deleteOnRollback: true,
-      key: './deploy_rsa',
+      key: 'deploy_rsa',
       keepReleases: 2,
       rsync: ['--del'],
     },
