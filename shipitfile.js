@@ -19,7 +19,7 @@ module.exports = function (shipit) {
     production: {
       servers: [{
         host: 'api.coworks.cl',
-        user: 'deploy',
+        user: 'root',
       }],
     },
     development: {
