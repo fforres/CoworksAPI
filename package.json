@@ -7,7 +7,7 @@
     "test": "echo \"Damn Daniel! No test specified yet\"",
     "start": "cross-env NODE_ENV=development nodemon index.js",
     "build": "cp -rf src dist && ./node_modules/.bin/babel --optional runtime -d dist ./src",
-    "deploy": "shipit production start"
+    "deploy": "shipit production deploy"
   },
   "author": "fforres",
   "license": "MIT",
