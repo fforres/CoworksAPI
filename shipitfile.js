@@ -26,6 +26,16 @@ module.exports = function (shipit) {
       servers: 'localhost',
     },
   });
+
+  shipit.on("deploy", function() {
+      shipit.log("DEPLOY STARTED");
+      // notify(":pushpin: " + project_name + " *Deploying...*");
+  });
+  shipit.on("deploy:finished", function() {
+      shipit.log(chalk.green('DEPLOY FINISHED'));
+      // notify(":pushpin: " + project_name + " *Deploying...*");
+  });
+
   // shipit.task('build', function () {
   //   shipit.log(chalk.green('Building Production/Dist code (npm run build)'));
   //   return shipit.local('npm run build', {cwd: CWD});
