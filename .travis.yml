@@ -5,8 +5,8 @@ addons:
   ssh_known_hosts: coworks.cl
 before_deploy:
 - eval "$(ssh-agent -s)"
-- chmod 600 $TRAVIS_BUILD_DIR/deploy_rsa
-- ssh-add $TRAVIS_BUILD_DIR/deploy_rsa
+- chmod 600 deploy_rsa
+- ssh-add deploy_rsa
 deploy:
     provider: script
     skip_cleanup: true
