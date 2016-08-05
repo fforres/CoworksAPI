@@ -4,7 +4,6 @@ import config from '../config';
 const neo4j = n4.v1;
 const URL = `http://${config.neo4j.url}:${config.neo4j.port}`;
 console.log(URL);
-console.log(URL);
 const driver = neo4j.driver(URL, neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
 let session = driver.session();
 
