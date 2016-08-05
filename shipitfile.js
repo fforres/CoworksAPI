@@ -1,8 +1,10 @@
+/*eslint-disable*/
+/*eslint-enable*/
 var shipitDeploy = require('shipit-deploy');
 var chalk = require('chalk');
 var CWD = '/home/travis/build/fforres/CoworksAPI';
 
-module.exports = function (shipit) {
+function shipit(shipit) {
   shipitDeploy(shipit);
   shipit.initConfig({
     default: {
@@ -28,27 +30,29 @@ module.exports = function (shipit) {
   });
 
   // LISTEN TO EVENTS!
-  shipit.on("deploy", function() {
+  shipit.on('deploy', function() {
     shipit.log(chalk.green('DEPLOY STARTED'));
   });
-  shipit.on("published", function() {
+  shipit.on('published', function() {
     shipit.start('post-publish');
   });
 
   // CUSTOM TASKS!
   shipit.blTask('install', function() {
     shipit.log(chalk.green('Installing Dependencies: ' + shipit.config.deployTo + '/current'));
-    return shipit.remote('NODE_ENV=production && npm --production --prefix ' + shipit.config.deployTo + '/current' + ' install ' + shipit.config.deployTo + '/current')
-  })
+    return shipit.remote('NODE_ENV=production && npm --production --prefix ' + shipit.config.deployTo + '/current' + ' install ' + shipit.config.deployTo + '/current');
+  });
   shipit.blTask('run', function() {
     shipit.log(chalk.green('Running proyect'));
-    return shipit.remote('pm2 startOrRestart ' + shipit.config.deployTo + '/current/pm2_ecosystem.json' )
+    return shipit.remote('pm2 startOrRestart ' + shipit.config.deployTo + '/current/pm2_ecosystem.json');
   })
   shipit.blTask('cleanup', function() {
     shipit.log(chalk.green('Cleaning up some small things (i.e. Removing key)'));
-    return shipit.remote('rm ' + shipit.config.deployTo + '/current/deploy_rsa_new*' )
-  })
-  shipit.task('post-publish', ['install','run', 'cleanup'], function() {
+    return shipit.remote('rm ' + shipit.config.deployTo + '/current/deploy_rsa_new*');
+  });
+  shipit.task('post-publish', ['install', 'run', 'cleanup'], function() {
     shipit.log(chalk.green('Building / running finished on production'));
-  })
+  });
 };
+
+module.exports = shipit;
