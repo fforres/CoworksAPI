@@ -40,7 +40,11 @@ function shipit(shipit) {
   // CUSTOM TASKS!
   shipit.blTask('install', function() {
     shipit.log(chalk.green('Installing Dependencies: ' + shipit.config.deployTo + '/current'));
-    return shipit.remote('NODE_ENV=production && npm --production --prefix ' + shipit.config.deployTo + '/current' + ' install ' + shipit.config.deployTo + '/current');
+    return shipit.remote('npm --prefix ' + shipit.config.deployTo + '/current' + ' install ' + shipit.config.deployTo + '/current');
+  });
+  shipit.blTask('build', function() {
+    shipit.log(chalk.green('Building APP'));
+    return shipit.remote('NODE_ENV=production && npm run build --prefix ' + shipit.config.deployTo + '/current');
   });
   shipit.blTask('run', function() {
     shipit.log(chalk.green('Running proyect'));
@@ -50,7 +54,7 @@ function shipit(shipit) {
     shipit.log(chalk.green('Cleaning up some small things (i.e. Removing key)'));
     return shipit.remote('rm ' + shipit.config.deployTo + '/current/deploy_rsa_new*');
   });
-  shipit.task('post-publish', ['install', 'run', 'cleanup'], function() {
+  shipit.task('post-publish', ['install', 'build', 'run', 'cleanup'], function() {
     shipit.log(chalk.green('Building / running finished on production'));
   });
 };
