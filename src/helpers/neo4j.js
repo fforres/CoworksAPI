@@ -2,7 +2,10 @@ import n4 from 'neo4j-driver';
 import config from '../config';
 
 const neo4j = n4.v1;
-const URL = `https://${config.neo4j.url}`;
+let URL = `https://${config.neo4j.url}`;
+if (process.env.NODE_ENV === 'development') {
+  URL = 'http://localhost';
+}
 const driver = neo4j.driver(URL, neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
 let session = driver.session();
 
