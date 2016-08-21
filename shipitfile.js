@@ -13,8 +13,8 @@ function shipitFunction(shipit) {
     default: {
       workspace: '/tmp/coworks_api',
       deployTo: '/var/www',
-      repositoryUrl: 'https://github.com/fforres/coworks_2.git',
-      branch: 'adding_deploy',
+      repositoryUrl: 'https://github.com/fforres/CoworksAPI.git',
+      branch: 'master',
       ignores: ['.git', 'node_modules'],
       deleteOnRollback: true,
       key: '/tmp/deploy_rsa_new',
