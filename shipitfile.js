@@ -12,7 +12,7 @@ function shipitFunction(shipit) {
   shipit.initConfig({
     default: {
       workspace: '/tmp/coworks_api',
-      deployTo: '/var/www/api',
+      deployTo: '/var/www',
       repositoryUrl: 'https://github.com/fforres/CoworksAPI.git',
       branch: 'master',
       ignores: ['.git', 'node_modules'],
