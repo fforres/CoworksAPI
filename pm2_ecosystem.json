@@ -1,12 +1,12 @@
 {
   "apps": [{
-    "script": "coworks_api",
+    "name": "coworks_api",
     "script": "index.js",
     "watch": true,
     "merge_logs": false,
     "exec_mode": "cluster",
     "instances"  : 2,
-    "cwd": "/var/www/current/dist",
+    "cwd": "/var/www/api/current/dist",
     "env": {
       "NODE_ENV": "production"
     },

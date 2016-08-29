@@ -53,6 +53,9 @@ const doLoad = (coworks) => {
       })
       .catch((error) => {
         console.log(error);
+      })
+      .finally(() => {
+        console.log('\n Finished!! ');
       });
   });
 };

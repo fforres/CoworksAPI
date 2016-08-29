@@ -1,7 +1,7 @@
 import parse from 'csv-parse';
 import fs from 'fs';
 import n4 from 'neo4j-driver';
-import config from '../config';
+import config from '../../src/config';
 const neo4j = n4.v1;
 const driver = neo4j.driver('http://localhost', neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
 const session = driver.session();

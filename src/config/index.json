@@ -1,6 +1,6 @@
 {
   "neo4j": {
-    "url": "10.134.4.72",
+    "url": "db.coworks.cl",
     "username": "neo4j",
     "password": "neo4j_",
     "port": 7474
