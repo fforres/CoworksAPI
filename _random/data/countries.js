@@ -1,7 +1,7 @@
 import parse from 'csv-parse';
 import fs from 'fs';
 import n4 from 'neo4j-driver';
-import config from '../config';
+import config from '../../src/config';
 const neo4j = n4.v1;
 const driver = neo4j.driver('http://localhost', neo4j.auth.basic(config.neo4j.username, config.neo4j.password));
 const session = driver.session();
@@ -16,12 +16,13 @@ const parser = parse({ delimiter: '\t' }, (err, data) => {
       name: {name}
     })
     RETURN country`;
-  data.forEach((country) => {
+  data.forEach((country, i) => {
     const params = {
       fipsCode: country[0],
       isoCode: country[1],
       tld: country[2],
       name: country[3],
+      id: i,
     };
     session
       .run(string, params)

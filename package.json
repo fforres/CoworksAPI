@@ -38,6 +38,7 @@
     "babel-register": "^6.11.6",
     "babyparse": "^0.4.6",
     "csv": "^1.1.0",
+    "csv-parse": "^1.1.7",
     "eslint": "^3.2.2",
     "eslint-config-airbnb": "^10.0.0",
     "eslint-plugin-import": "^1.12.0",
