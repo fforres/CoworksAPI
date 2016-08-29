@@ -6,7 +6,7 @@
     "merge_logs": false,
     "exec_mode": "cluster",
     "instances"  : 2,
-    "cwd": "/var/www/api/current/dist",
+    "cwd": "/var/www/current/dist",
     "env": {
       "NODE_ENV": "production"
     },
