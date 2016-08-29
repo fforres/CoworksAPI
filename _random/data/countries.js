@@ -16,13 +16,12 @@ const parser = parse({ delimiter: '\t' }, (err, data) => {
       name: {name}
     })
     RETURN country`;
-  data.forEach((country, i) => {
+  data.forEach((country) => {
     const params = {
       fipsCode: country[0],
       isoCode: country[1],
       tld: country[2],
       name: country[3],
-      id: i,
     };
     session
       .run(string, params)
