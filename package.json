@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Damn Daniel! No test specified yet\"",
     "start": "cross-env NODE_ENV=development nodemon index.js",
-    "build": "cp -rf src dist && ./node_modules/.bin/babel-cli --optional runtime -d dist ./src --source-maps inline",
+    "build": "cp -rf src dist && ./node_modules/.bin/babel --optional runtime -d dist ./src --source-maps inline",
     "deploy": "shipit production deploy"
   },
   "author": "fforres",
@@ -26,7 +26,6 @@
     "shipit-deploy": "^2.2.0"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
     "babel-eslint": "^6.1.2",
